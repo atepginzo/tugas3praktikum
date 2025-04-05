@@ -3,6 +3,8 @@ import joblib
 import numpy as np
 import pandas as pd
 import re
+import os
+
 
 app = Flask(__name__)
 
@@ -89,4 +91,5 @@ def predict():
                                error=f"Terjadi kesalahan saat memproses data: {str(e)}")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
