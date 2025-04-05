@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Hasil Prediksi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap & Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .input-summary td {
+            padding: 6px 12px;
+        }
+
+        .footer-note {
+            font-size: 0.85rem;
+            text-align: center;
+            color: #6c757d;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-md-8 col-lg-6 mt-5">
+            <div class="card shadow-lg p-4">
+                <div class="card-body text-center">
+
+                    <div class="mb-4">
+                        <i class="bi bi-house-check display-4 text-primary"></i>
+                        <h2 class="card-title mt-2">Hasil Prediksi Harga Rumah</h2>
+                        <p class="text-muted">Berdasarkan data yang Anda masukkan</p>
+                    </div>
+
+                    {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill"></i> {{ error }}
+                        </div>
+                    {% else %}
+                        <p class="mb-1">Perkiraan harga properti Anda adalah:</p>
+                        <div class="result-value mb-3">
+                            Rp {{ "{:,.0f}".format(prediction) }}
+                        </div>
+                    {% endif %}
+
+                    {% if input_data %}
+                    <div class="text-start mb-4">
+                        <h6>Detail Input:</h6>
+                        <table class="table table-borderless input-summary">
+                            <tr>
+                                <td><strong>Luas Tanah:</strong></td>
+                                <td>{{ input_data.LT }} m²</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Luas Bangunan:</strong></td>
+                                <td>{{ input_data.LB }} m²</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lokasi:</strong></td>
+                                <td>{{ input_data.Lokasi }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    {% endif %}
+
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="/" class="btn btn-outline-primary">
+                            <i class="bi bi-arrow-left"></i> Kembali ke Form
+                        </a>
+                        <button onclick="window.print()" class="btn btn-success">
+                            <i class="bi bi-printer"></i> Cetak Hasil
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-note mt-4">
+                Dibuat dengan ❤️ menggunakan Flask Ginzo <br>
+                <small>&copy; 2025 - Aplikasi Prediksi Harga Rumah</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
