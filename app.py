@@ -24,7 +24,7 @@ def parse_price(price_str):
 @app.route('/')
 def home():
     # Load dataset asli
-    df = pd.read_csv(r'venv/harga_rumah.csv')
+    df = pd.read_csv(r'harga_rumah.csv')
 
     # Bersihkan dan siapkan kolom harga
     df['Harga'] = df['price'].apply(parse_price)
@@ -91,5 +91,8 @@ def predict():
                                error=f"Terjadi kesalahan saat memproses data: {str(e)}")
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    import os
+    port = int(os.environ.get('PORT', 8080))
+    app.run(debug=False, host='0.0.0.0', port=port)
+
 
